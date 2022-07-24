@@ -1,0 +1,5 @@
+bbcode~=1.1.0
+razdel~=0.5.0
+jsonschema~=4.7.2
+pandas~=1.4.3
+numpy~=1.23.1
