@@ -53,3 +53,22 @@ train_cc: ## Train Catboost Classifier
 		-v 52 \
 		-ss 0.8 \
 		--model "$(current_dir)/out/cbmodel.bin"
+
+predict: ## Predict prod data
+	python3 "$(current_dir)/predict.py" \
+		--prod "$(current_dir)/demo/prod.json" \
+		--labels "$(current_dir)/out/labels.json" \
+		--cbmodel "$(current_dir)/out/cbmodel.bin" \
+		--model "$(current_dir)/out/model" \
+		-s 43 \
+		-v 52 \
+		--result "$(current_dir)/demo/result.json"
+
+pipeline: ## Run everything in sequence
+	rm -rf "$(current_dir)/out"
+	mkdir -p "$(current_dir)/out"
+	make prepare_input
+	make train_sentences
+	make predict_sentences
+	make train_cc
+	make predict
