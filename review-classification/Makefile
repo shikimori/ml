@@ -46,3 +46,10 @@ predict_sentences: ## Predict sentences using classifier
 		--predictions "$(current_dir)/out/predictions.json" \
 		--cctrain "$(current_dir)/out/cctrain.json"
 
+train_cc: ## Train Catboost Classifier
+	python3 "$(current_dir)/train_gradient.py" \
+		--train "$(current_dir)/out/cctrain.json" \
+		-s 43 \
+		-v 52 \
+		-ss 0.8 \
+		--model "$(current_dir)/out/cbmodel.bin"
