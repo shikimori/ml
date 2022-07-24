@@ -24,3 +24,25 @@ prepare_input: ## Read input.json, split by sentences and slice to train/test se
 		--test "$(current_dir)/out/test.json" \
 		--sentences "$(current_dir)/out/sentences.json" \
 		--labels "$(current_dir)/out/labels.json"
+
+train_sentences: ## Train sentences classifier
+	python3 "$(current_dir)/train_sentences_classifier.py" \
+		-s 43 \
+		-v 52 \
+		--vocab 1000000 \
+		--train "$(current_dir)/out/train.json" \
+		--test "$(current_dir)/out/test.json" \
+		--labels "$(current_dir)/out/labels.json" \
+		--model "$(current_dir)/out/model" \
+		--history "$(current_dir)/out/history.bin"
+
+predict_sentences: ## Predict sentences using classifier
+	python3 "$(current_dir)/predict_sentences.py" \
+		--sentences "$(current_dir)/out/sentences.json" \
+		--model "$(current_dir)/out/model" \
+		--labels "$(current_dir)/out/labels.json" \
+		-s 43 \
+		-v 52 \
+		--predictions "$(current_dir)/out/predictions.json" \
+		--cctrain "$(current_dir)/out/cctrain.json"
+

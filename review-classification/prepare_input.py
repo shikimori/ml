@@ -42,14 +42,12 @@ def main(args):
     ap.add_argument("-in", "--input", required=True,
                     help="Input file with raw data")
 
-    ap.add_argument("-s", "--seed", type=int,
+    ap.add_argument("-s", "--seed", type=int, default=42,
                     help="Seed. Default: 42")
-    ap.add_argument("-ss", "--splitsize", type=float,
+    ap.add_argument("-ss", "--splitsize", type=float, default=0.8,
                     help="Split size. Default: 0.8")
-    ap.add_argument("-v", "--verbose", type=int,
+    ap.add_argument("-v", "--verbose", type=int, default=0,
                     help="Verbose")
-    # ap.add_argument("-p4", "--param4",
-    #                 help="Need to sort")
 
     ap.add_argument("--train", required=True,
                     help="Slice for training")
@@ -74,12 +72,6 @@ def main(args):
     seed = args['seed']
     split_size = args['splitsize']
 
-    if split_size is None:
-        split_size = 0.8
-
-    if seed is None:
-        seed = 42
-
     np.random.seed(seed)
 
     input_path = Path(args['input'])
@@ -95,7 +87,8 @@ def main(args):
     with open(input_path, 'r', encoding='utf8') as f:
         df = json.load(f)
 
-    validate(df, schema=input_schema)
+    for item in df:
+        validate(item, schema=input_schema)
 
     if verbose >= 2:
         logger.info('Input data is correct!')

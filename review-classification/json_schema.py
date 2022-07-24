@@ -3,18 +3,13 @@ input_schema = {
     "type": "array",
     "items": [
         {
-            "type": "array",
-            "items": [
-                {
-                    "type": "integer"
-                },
-                {
-                    "type": "string"
-                },
-                {
-                    "type": "string"
-                }
-            ]
+            "type": "integer"
         },
+        {
+            "type": "string"
+        },
+        {
+            "type": "string"
+        }
     ]
 }
